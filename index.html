@@ -1,0 +1,57 @@
+<!doctype html>
+<html dir="rtl" lang="ar">
+<meta charset="utf-8" />
+<title>WA Sender V4.6.3 (Attach-Only)</title>
+<style>
+  body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;margin:12px}
+  textarea,input,button{font-size:14px}
+  textarea{width:100%;min-height:90px}
+  .row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:6px 0}
+  .row > *{flex:1}
+  .label{font-weight:600;margin:6px 0 4px}
+  #logs{background:#0b1021;color:#cde1ff;padding:8px;border-radius:8px;min-height:160px;white-space:pre-wrap;overflow:auto}
+  .btns button{padding:8px 10px;border-radius:8px;border:1px solid #ddd;background:#f5f5f5;cursor:pointer}
+  .btns button:hover{background:#ececec}
+  .small{font-size:12px;color:#666}
+</style>
+<body>
+  <h2>WhatsApp Sender (V4.6.3 Attach‑Only)</h2>
+  <p class="small">⚠️ افتح <b>WhatsApp Web</b> يدويًا وسجّل الدخول (QR) قبل الضغط على "فتح/تعرّف واتساب".</p>
+  <div class="label">الأرقام (سطر لكل رقم):</div>
+  <textarea id="numbers" placeholder="مثال:
+9665xxxxxxxx
+9665yyyyyyy,محمد
+9665zzzzzzz | Ahmed"></textarea>
+  <div class="small">يمكن إضافة اسم بعد الرقم بـ <b>,</b> أو <b>|</b> أو <b>،</b> أو TAB.</div>
+  <div class="label">نص الرسالة الأساسية (يدعم {{name}}):</div>
+  <textarea id="message" placeholder="مرحبًا {{name}}، هذا مثال لرسالة مخصصة…"></textarea>
+  <div class="label">المُفتتحات (تفصل بـ |) — تدعم {{name}}:</div>
+  <textarea id="greetings"></textarea>
+  <div class="label">الخاتمة (تفصل بـ |) — تدعم {{name}}:</div>
+  <textarea id="closings"></textarea>
+  <div class="small">يمكن اختيار المُفتتح والخاتمة عشوائيًا عبر الخيارات أدناه.</div>
+  <div class="label">مسار ملف الصورة (اختياري لإرسال صورة + تعليق):</div>
+<input id="mediaPath" placeholder="مثال: C:\\images\\offer.jpg" />
+<div class="row">
+    <label><input type="checkbox" id="randomGreeting"> عشوائي للمُفتتح</label>
+    <label><input type="checkbox" id="randomClosing"> عشوائي للخاتمة</label>
+    <label><input type="checkbox" id="includeClosing"> إضافة الخاتمة</label>
+  </div>
+  <div class="row">
+    <label>الفاصل بين الرسائل (ثواني): <input type="number" id="delay" min="1" value="30" style="width:120px"></label>
+  </div>
+  <div class="btns row">
+    <select id="attachKind" style="flex:0 0 180px"><option value="media">مرفق: صور/فيديو</option><option value="doc">مرفق: مستند</option></select>
+    <button id="btnAttach">فتح مُرفق</button>
+    <button id="btnSendMedia">إرسال المرفق + النص</button>
+    <button id="btnOpen">فتح/تعرّف واتساب</button>
+    <button id="btnStart">بدء / استئناف</button>
+    <button id="btnStartMedia">بدء صور + تعليق</button>
+    <button id="btnPause">إيقاف مؤقت</button>
+    <button id="btnStop">إيقاف</button>
+  </div>
+  <div class="label">Logs</div>
+  <div id="logs"></div>
+  <script src="ui.js"></script>
+</body>
+</html>
