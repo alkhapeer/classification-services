@@ -45,8 +45,21 @@
     .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
     .card{padding:12px;border-radius:8px;border:1px solid #e8eef6;background:#fbfdff}
     .card p{margin:8px 0 0;color:#0b2340}
-    .banner{margin-top:18px;border-radius:10px;overflow:hidden}
-    .banner img{width:100%;height:auto;display:block}
+    .banner{margin-top:18px;border-radius:10px;overflow:hidden;text-align:center}
+    /* Responsive image sizing: desktop 25%, tablet 40%, mobile 100% */
+    .banner img{
+      width:25%;
+      height:auto;
+      display:inline-block;
+      margin:0 auto;
+      transition:width 0.25s ease;
+    }
+    @media (max-width:992px){
+      .banner img{width:40%;}
+    }
+    @media (max-width:600px){
+      .banner img{width:100%;}
+    }
     footer{margin-top:18px;text-align:center;color:#56707f;font-size:13px}
     @media (max-width:720px){
       .hero{flex-direction:column;align-items:center;text-align:center}
