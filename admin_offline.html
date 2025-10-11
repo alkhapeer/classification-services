@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>مدير المدونة — مولّد المقالات (Offline)</title>
+  <style>
+    body{font-family:Tahoma,Arial,sans-serif;background:#f6f7fb;color:#0b2340;padding:18px}
+    .wrap{max-width:980px;margin:10px auto;background:#fff;padding:18px;border-radius:8px;box-shadow:0 6px 20px rgba(11,35,64,0.06)}
+    h1{margin:0 0 12px;font-size:20px}
+    label{display:block;margin-top:10px;font-weight:700}
+    input[type=text], input[type=date], textarea{width:100%;padding:8px;border:1px solid #e3e7ee;border-radius:6px;margin-top:6px;font-size:14px}
+    textarea{min-height:160px;resize:vertical}
+    .row{display:flex;gap:12px;flex-wrap:wrap}
+    .col{flex:1 1 200px}
+    .btn{display:inline-block;padding:10px 14px;border-radius:8px;background:#0b4a86;color:#fff;text-decoration:none;border:none;font-weight:700;cursor:pointer;margin-top:12px}
+    .btn.secondary{background:#f3f4f8;color:#0b2340}
+    .preview{margin-top:18px;padding:12px;border-radius:8px;background:#fbfdff;border:1px solid #eef4fb}
+    .images-list{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+    .images-list img{width:84px;height:64px;object-fit:cover;border-radius:6px;border:1px solid #e8eef6}
+    .note{color:#556;margin-top:8px;font-size:13px}
+    .output{margin-top:14px}
+    .output a{display:inline-block;margin-right:8px;margin-top:6px}
+    .small{font-size:13px;color:#556}
+    footer{margin-top:18px;color:#667;font-size:13px;text-align:center}
+    @media (max-width:720px){ .row{flex-direction:column} }
+  </style>
+  <!-- JSZip + FileSaver CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+</head>
+<body>
+  <div class="wrap">
+    <h1>مولّد مقال (بدون حاجتك لـ GitHub API)</h1>
+    <p class="small">املاً الحقول ثم اضغط <strong>Export</strong>. سيُنتَج ملف HTML جاهز للرفع وZIP للصور وسطر HTML لإضافة إلى صفحة القوائم.</p>
+
+    <label>العنوان (Title)</label>
+    <input id="title" type="text" placeholder="عنوان المقال">
+
+    <div class="row">
+      <div class="col">
+        <label>slug (اسم الملف بدون مسافات)</label>
+        <input id="slug" type="text" placeholder="مثال: khatawat-raf3-tasneef">
+      </div>
+      <div class="col">
+        <label>تاريخ النشر</label>
+        <input id="date" type="date" value="">
+      </div>
+    </div>
+
+    <label>المؤلف (Author)</label>
+    <input id="author" type="text" value="حلول التصنيف">
+
+    <label>الملخّص (Summary - يظهر أعلى المقال وفي meta description)</label>
+    <input id="summary" type="text" placeholder="ملخّص قصير للمقال">
+
+    <label>محتوى المقال (ضع HTML مختصر: &lt;h2&gt; &lt;p&gt; &lt;img&gt;)</label>
+    <textarea id="content" placeholder="أضف الفقرات والعناوين والصور باستخدام &lt;img src=&quot;/assets/name.jpg&quot;&gt;"></textarea>
+
+    <label>رفع الصور (يمكن رفع عدة صور)</label>
+    <input id="images" type="file" accept="image/*" multiple>
+
+    <div class="images-list" id="imagesPreview"></div>
+
+    <div style="margin-top:12px">
+      <button id="exportBtn" class="btn">Export (إنشاء ملف المقال وZIP للصور)</button>
+      <button id="previewBtn" class="btn secondary" onclick="renderPreview()">عرض معاينة سريعة</button>
+    </div>
+
+    <div class="preview" id="previewBox" style="display:none">
+      <h3 id="pvTitle"></h3>
+      <div class="small" id="pvMeta"></div>
+      <p id="pvSummary" style="font-weight:700"></p>
+      <div id="pvContent"></div>
+    </div>
+
+    <div class="output" id="outputBox"></div>
+
+    <p class="note">تعليمات موجزة: بعد التحميل سيُنشأ ملف HTML اسمه <code>article-{slug}.html</code>. ارفع الملف وملف الصور داخل مجلد <code>/assets/</code> في المستودع ثم أضف السطر الناتج من "Index Snippet" إلى صفحة <code>blog_index.html</code>.</p>
+
+    <footer>مولّد المقالات — يعمل محليًا على جهازك</footer>
+  </div>
+
+<script>
+function escapeHtml(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+const imagesInput = document.getElementById('images');
+const imagesPreview = document.getElementById('imagesPreview');
+let imageFiles = [];
+
+imagesInput.addEventListener('change', (e)=>{
+  imageFiles = Array.from(e.target.files);
+  imagesPreview.innerHTML = '';
+  imageFiles.forEach(f=>{
+    const url = URL.createObjectURL(f);
+    const img = document.createElement('img');
+    img.src = url;
+    imagesPreview.appendChild(img);
+  });
+});
+
+function renderPreview(){
+  const title = document.getElementById('title').value || '(بدون عنوان)';
+  const date = document.getElementById('date').value || new Date().toISOString().slice(0,10);
+  const author = document.getElementById('author').value || 'حلول التصنيف';
+  const summary = document.getElementById('summary').value || '';
+  const content = document.getElementById('content').value || '';
+
+  document.getElementById('pvTitle').innerText = title;
+  document.getElementById('pvMeta').innerText = date + ' — بواسطة ' + author;
+  document.getElementById('pvSummary').innerText = summary;
+  document.getElementById('pvContent').innerHTML = content;
+  document.getElementById('previewBox').style.display = 'block';
+  window.scrollTo({top: document.getElementById('previewBox').offsetTop - 10, behavior:'smooth'});
+}
+
+function buildArticleHtml(data, imagesList){
+  const template = `<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>${escapeHtml(data.title)} — حلول التصنيف</title>
+  <meta name="description" content="${escapeHtml(data.summary)}">
+  <link rel="stylesheet" href="/style.css">
+  <style>
+    body{font-family:Tahoma,Arial,sans-serif;line-height:1.7;color:#0b2340;padding:18px}
+    .container{max-width:900px;margin:18px auto}
+    header{margin-bottom:18px}
+    .meta{color:#667; font-size:14px;margin-bottom:12px}
+    img.responsive{max-width:100%;height:auto;border-radius:6px}
+    .whatsapp-fixed{position:fixed;bottom:20px;right:20px;z-index:9999}
+    .whatsapp-fixed a{display:block;background:#25D366;padding:12px;border-radius:50%;box-shadow:0 3px 8px rgba(0,0,0,.2)}
+    .whatsapp-fixed img{width:36px;height:36px;display:block}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>${escapeHtml(data.title)}</h1>
+      <div class="meta">نُشر في ${escapeHtml(data.date)} — بواسطة ${escapeHtml(data.author)}</div>
+      <p><strong>${escapeHtml(data.summary)}</strong></p>
+    </header>
+
+    <article>
+      ${data.content}
+    </article>
+
+    <footer style="margin-top:30px;color:#56707f;font-size:14px">
+      <p>© حلول التصنيف لخدمات الأعمال</p>
+      <p><a href="/blog_index.html">العودة إلى المدونة</a></p>
+    </footer>
+  </div>
+
+  <div class="whatsapp-fixed">
+    <a href="https://wa.me/966559097686" target="_blank" aria-label="واتساب">
+      <img src="/assets/whatsapp-icon.png" alt="واتساب">
+    </a>
+  </div>
+</body>
+</html>`;
+  return template;
+}
+
+document.getElementById('exportBtn').addEventListener('click', async ()=>{
+  const title = document.getElementById('title').value.trim();
+  const slug = document.getElementById('slug').value.trim() || (title ? title.toLowerCase().replace(/\s+/g,'-').replace(/[^a-z0-9\-ء-ي\u0600-\u06FF]/gi,'') : 'article');
+  const date = document.getElementById('date').value || new Date().toISOString().slice(0,10);
+  const author = document.getElementById('author').value || 'حلول التصنيف';
+  const summary = document.getElementById('summary').value || '';
+  const content = document.getElementById('content').value || '';
+
+  if(!title){ alert('أدخل عنوان المقال.'); return; }
+
+  const data = { title, slug, date, author, summary, content };
+  const html = buildArticleHtml(data);
+
+  // generate article file
+  const articleFilename = `article-${slug}.html`;
+  const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+  saveAs(blob, articleFilename);
+
+  // prepare ZIP of images (if any)
+  if(imageFiles.length>0){
+    const zip = new JSZip();
+    imageFiles.forEach((f)=>{
+      zip.file(f.name, f);
+    });
+    const zipContent = await zip.generateAsync({type:"blob"});
+    saveAs(zipContent, `images-${slug}.zip`);
+  }
+
+  // prepare index snippet
+  const snippet = `<div class="post">
+  <h2><a href="/article-${slug}.html">${escapeHtml(title)}</a></h2>
+  <p>${escapeHtml(date)} — ${escapeHtml(summary)}</p>
+</div>`;
+
+  const outputBox = document.getElementById('outputBox');
+  outputBox.innerHTML = '<div class="small"><strong>تم الإنشاء:</strong></div>';
+  const link1 = document.createElement('a');
+  link1.href = '#';
+  link1.className='btn secondary';
+  link1.textContent='تحميل: ' + articleFilename;
+  outputBox.appendChild(link1);
+
+  const txt = document.createElement('textarea');
+  txt.style.width='100%';
+  txt.style.height='120px';
+  txt.value = snippet;
+  outputBox.appendChild(txt);
+
+  const p = document.createElement('div');
+  p.className='small';
+  p.innerHTML = 'انسخ السطر أعلاه والصقه داخل ملف <code>blog_index.html</code> في المكان المناسب. ثم ارفع ملف المقال وملف الصور داخل مجلد <code>/assets/</code> إلى مستودع GitHub.';
+  outputBox.appendChild(p);
+
+  alert('تم إنشاء ملف المقال و(إن وُجدت) ZIP للصور. ارفع الملفات إلى المستودع.');
+});
+</script>
+</body>
+</html>
