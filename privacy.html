@@ -5,25 +5,32 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>{PAGE_TITLE} — حلول التصنيف</title>
   <meta name="description" content="{PAGE_SUMMARY}">
-  <link rel="stylesheet" href="/style.css"> <!-- نفس ملف الستايل المستخدم في الرئيسية -->
   <style>
-    /* تعديلات موضعية لضمان تطابق الستايل مع الهوم بيج */
+    :root {
+      --dark:#0b4a86;
+      --blue:#0b4a86;
+    }
+    body{margin:0;font-family:"Tajawal",sans-serif;background:#f6f9fc;color:#1e2a36}
     .page-hero{background:var(--dark);color:#f6f9ea;padding:28px;border-radius:12px;margin:18px 0}
     .container{max-width:1100px;margin:0 auto;padding:18px}
     .page-content{background:#fff;padding:22px;border-radius:10px;box-shadow:0 6px 20px rgba(11,35,64,0.04)}
-    .page-content h1{color:var(--blue,#0b4a86);margin-top:0}
+    .page-content h1{color:var(--blue);margin-top:0}
     .page-content p{line-height:1.8;color:#243044}
-    /* استجابة */
-    @media(max-width:720px){ .page-hero{text-align:center} }
+    header{background:#fff;box-shadow:0 2px 6px rgba(0,0,0,0.05);padding:12px 0}
+    header a{color:#0b4a86;text-decoration:none;margin:0 8px;font-weight:600}
+    footer{margin-top:18px;padding:18px;background:#fbfdff;text-align:center;color:#56707f;font-size:13px}
+    @media(max-width:720px){.page-hero{text-align:center}}
   </style>
 </head>
 <body>
-  <!-- ====== HEADER (انسخ نفس الهيدر من index.html أو ضع الشفرات نفسها هنا) ====== -->
+
+  <!-- ====== HEADER ====== -->
   <header>
     <div class="container">
-      <!-- مثال هيدر بسيط؛ استبدل بمحتوى الهيدر الحقيقي من index.html -->
       <div style="display:flex;align-items:center;justify-content:space-between;gap:12px">
-        <a href="/" aria-label="الصفحة الرئيسية"><img src="/assets/hlol.png" alt="شعار" style="width:120px;height:auto"></a>
+        <a href="/" aria-label="الصفحة الرئيسية">
+          <img src="/assets/hlol.png" alt="شعار حلول التصنيف" style="width:120px;height:auto">
+        </a>
         <nav>
           <a href="/index.html">الرئيسية</a> |
           <a href="/about.html">من نحن</a> |
@@ -34,7 +41,7 @@
     </div>
   </header>
 
-  <!-- ====== HERO (مطابق لهوم بيج) ====== -->
+  <!-- ====== HERO ====== -->
   <section class="page-hero">
     <div class="container">
       <h2>{HERO_TITLE}</h2>
@@ -42,8 +49,8 @@
     </div>
   </section>
 
-  <!-- ====== MAIN CONTENT (استبدل بالمحتوى الخاص بكل صفحة) ====== -->
-  <div class="container">
+  <!-- ====== MAIN CONTENT ====== -->
+  <div class="container page-content">
     <h1>سياسة الخصوصية</h1>
     <div class="meta">آخر تحديث: 2025-10-10</div>
 
@@ -52,8 +59,8 @@
     <section>
       <h2>1. المعلومات التي نجمعها</h2>
       <ul>
-        <li>معلومات تتعلق بالاتصال مثل رقم الهاتف والبريد الإلكتروني عند التواصل عبر نماذج الموقع أو واتساب.</li>
-        <li>معلومات فنية مثل عناوين الـ IP، نوع المتصفح، صفحات الزيارة وبيانات التحليلات (عند استخدام Google Analytics أو علامات تتبع أخرى).</li>
+        <li>معلومات اتصال مثل رقم الهاتف والبريد الإلكتروني عند التواصل عبر نماذج الموقع أو واتساب.</li>
+        <li>معلومات فنية مثل عنوان IP ونوع المتصفح وصفحات الزيارة وبيانات التحليلات.</li>
       </ul>
     </section>
 
@@ -62,41 +69,36 @@
       <ul>
         <li>للرد على استفساراتك وتقديم الخدمات المطلوبة.</li>
         <li>لتحسين محتوى الموقع وتجربة المستخدم.</li>
-        <li>لأغراض قياس أداء الحملات الإعلانية وتحسينها عند استخدام علامات تتبع مثل Google Tag.</li>
+        <li>لقياس أداء الحملات الإعلانية وتحسينها.</li>
       </ul>
     </section>
 
     <section>
       <h2>3. مشاركة البيانات</h2>
-      <p>نقوم بمشاركة البيانات مع مزوّدي خدمات موثوقين (مثل موفري استضافة، مزودي تحليلات وإعلانات) فقط عند الحاجة ولأغراض تشغيل الموقع وتقديم الخدمة.</p>
+      <p>نشارك البيانات فقط مع مزوّدي خدمات موثوقين عند الحاجة لتشغيل الموقع وتقديم الخدمة.</p>
     </section>
 
     <section>
       <h2>4. ملفات تعريف الارتباط (Cookies)</h2>
-      <p>يستخدم الموقع ملفات تعريف الارتباط لتحسين الأداء وتذكّر تفضيلات المستخدم. يمكنك تعطيل ملفات تعريف الارتباط عبر إعدادات متصفحك، لكن قد يؤثر ذلك على تجربة الاستخدام.</p>
+      <p>نستخدم ملفات تعريف الارتباط لتحسين الأداء وتذكّر تفضيلات المستخدم. يمكنك تعطيلها من إعدادات المتصفح.</p>
     </section>
 
     <section>
       <h2>5. الأمان</h2>
-      <p>نتخذ تدابير تقنية وإجرائية لحماية البيانات. ومع ذلك لا يوجد نظام آمن بنسبة 100%، وعلى المستخدمين توخي الحذر عند مشاركة معلومات حسّاسة.</p>
+      <p>نتخذ تدابير تقنية وإجرائية لحماية البيانات، مع أن الأمان التام غير ممكن دائمًا.</p>
     </section>
 
     <section>
       <h2>6. حقوقك وكيفية الاتصال</h2>
-      <p>للاستفسار أو طلب حذف بياناتك أو تعديلها، تواصل معنا عبر:</p>
+      <p>لطلب حذف بياناتك أو تعديلها تواصل معنا عبر الهاتف أو واتساب:</p>
       <p>هاتف: 0559097686 — واتساب: <a href="https://wa.me/966559097686">0559097686</a></p>
     </section>
+  </div>
 
-  <!-- ====== FOOTER (انسخ نفس الفوتر من index.html) ====== -->
-  <footer style="margin-top:18px;padding:18px;background:#fbfdff">
-    <div class="container" style="text-align:center;color:#56707f;font-size:13px">
-      حلول التصنيف لخدمات الأعمال — للتواصل: 0559097686 - 0501922558
-    </div>
+  <!-- ====== FOOTER ====== -->
+  <footer>
+    حلول التصنيف لخدمات الأعمال — للتواصل: 0559097686 – 0501922558
   </footer>
+
 </body>
 </html>
-
-
-
-
-
