@@ -85,6 +85,37 @@
   background:#0b4a86;color:#fff;
   box-shadow:0 6px 18px rgba(11,74,134,0.08);
 }
+/* ===== أزرار الأقسام الرئيسية ===== */
+.main-buttons {
+  text-align: center;
+  margin: 40px auto;
+  direction: rtl;
+}
+
+.main-buttons .container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.btn-section {
+  background: linear-gradient(135deg, #0066cc, #0099ff);
+  color: #fff;
+  padding: 14px 28px;
+  border-radius: 50px;
+  font-size: 18px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 102, 204, 0.2);
+}
+
+.btn-section:hover {
+  background: linear-gradient(135deg, #0055aa, #0088dd);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 14px rgba(0, 102, 204, 0.3);
+}
 
   </style>
 </head>
@@ -122,6 +153,14 @@
       </div>
     </section>
 
+    <!-- أزرار الأقسام الرئيسية -->
+    <section class="main-buttons">
+      <div class="container">
+        <a href="about.html" class="btn-section">من نحن</a>
+        <a href="services.html" class="btn-section">خدماتنا</a>
+        <a href="faq.html" class="btn-section">الأسئلة الشائعة</a>
+      </div>
+    </section>
 
     <section class="features">
       <h4> خدماتنا تشمل : </h4>
