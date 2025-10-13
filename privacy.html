@@ -1,13 +1,48 @@
-
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<title>سياسة الخصوصية | حلول التصنيف</title>
-<link rel="stylesheet" href="css/style.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>{PAGE_TITLE} — حلول التصنيف</title>
+  <meta name="description" content="{PAGE_SUMMARY}">
+  <link rel="stylesheet" href="/style.css"> <!-- نفس ملف الستايل المستخدم في الرئيسية -->
+  <style>
+    /* تعديلات موضعية لضمان تطابق الستايل مع الهوم بيج */
+    .page-hero{background:var(--dark);color:#f6f9ea;padding:28px;border-radius:12px;margin:18px 0}
+    .container{max-width:1100px;margin:0 auto;padding:18px}
+    .page-content{background:#fff;padding:22px;border-radius:10px;box-shadow:0 6px 20px rgba(11,35,64,0.04)}
+    .page-content h1{color:var(--blue,#0b4a86);margin-top:0}
+    .page-content p{line-height:1.8;color:#243044}
+    /* استجابة */
+    @media(max-width:720px){ .page-hero{text-align:center} }
+  </style>
 </head>
 <body>
+  <!-- ====== HEADER (انسخ نفس الهيدر من index.html أو ضع الشفرات نفسها هنا) ====== -->
+  <header>
+    <div class="container">
+      <!-- مثال هيدر بسيط؛ استبدل بمحتوى الهيدر الحقيقي من index.html -->
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:12px">
+        <a href="/" aria-label="الصفحة الرئيسية"><img src="/assets/hlol.png" alt="شعار" style="width:120px;height:auto"></a>
+        <nav>
+          <a href="/index.html">الرئيسية</a> |
+          <a href="/about.html">من نحن</a> |
+          <a href="/services.html">خدماتنا</a> |
+          <a href="/faq.html">الأسئلة الشائعة</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <!-- ====== HERO (مطابق لهوم بيج) ====== -->
+  <section class="page-hero">
+    <div class="container">
+      <h2>{HERO_TITLE}</h2>
+      <p class="lead">{HERO_LEAD}</p>
+    </div>
+  </section>
+
+  <!-- ====== MAIN CONTENT (استبدل بالمحتوى الخاص بكل صفحة) ====== -->
   <div class="container">
     <h1>سياسة الخصوصية</h1>
     <div class="meta">آخر تحديث: 2025-10-10</div>
@@ -52,14 +87,16 @@
       <p>هاتف: 0559097686 — واتساب: <a href="https://wa.me/966559097686">0559097686</a></p>
     </section>
 
-  <footer>
-    <div>
+  <!-- ====== FOOTER (انسخ نفس الفوتر من index.html) ====== -->
+  <footer style="margin-top:18px;padding:18px;background:#fbfdff">
+    <div class="container" style="text-align:center;color:#56707f;font-size:13px">
       حلول التصنيف لخدمات الأعمال — للتواصل: 0559097686 - 0501922558
-      سجل تجاري رقم : 7041630638
-      <a href="privacy.html" class="footer-privacy-link">سياسة الخصوصية</a>
     </div>
   </footer>
-</div>
-
 </body>
 </html>
+
+
+
+
+
