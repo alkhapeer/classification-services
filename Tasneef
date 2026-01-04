@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>خدمات تصنيف واعتماد المقاولين</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta name="description" content="خدمات متكاملة لتصنيف واعتماد المقاولين، إعداد الملفات، المتابعة، الحلول القانونية، وخدمات قوى ومدد. تواصل معنا مباشرة عبر واتساب.">
+
+  <style>
+    body {
+      font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+      background: #f4f6f8;
+      margin: 0;
+      padding: 0;
+      color: #222;
+    }
+
+    .wrapper {
+      max-width: 900px;
+      margin: auto;
+      padding: 20px;
+    }
+
+    .card {
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 40px 30px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    }
+
+    h1 {
+      font-size: 30px;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+
+    .subtitle {
+      text-align: center;
+      font-size: 18px;
+      color: #555;
+      margin-bottom: 35px;
+      line-height: 1.8;
+    }
+
+    h2 {
+      font-size: 22px;
+      margin: 35px 0 15px;
+      border-right: 5px solid #25D366;
+      padding-right: 10px;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    ul li {
+      padding: 10px 0;
+      font-size: 16px;
+      border-bottom: 1px solid #eee;
+    }
+
+    ul li::before {
+      content: "✔";
+      color: #25D366;
+      font-weight: bold;
+      margin-left: 8px;
+    }
+
+    .cta-box {
+      margin-top: 40px;
+      background: #f9fafb;
+      border-radius: 12px;
+      padding: 25px;
+      text-align: center;
+    }
+
+    .cta-box p {
+      font-size: 18px;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .btn-whatsapp {
+      display: inline-block;
+      background: #25D366;
+      color: #fff;
+      text-decoration: none;
+      padding: 16px 30px;
+      border-radius: 10px;
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .btn-whatsapp:hover {
+      opacity: 0.9;
+    }
+
+    .note {
+      margin-top: 15px;
+      font-size: 14px;
+      color: #666;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 25px;
+      font-size: 13px;
+      color: #888;
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 24px;
+      }
+      .subtitle {
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="wrapper">
+    <div class="card">
+
+      <!-- HERO -->
+      <h1>خدمات تصنيف واعتماد المقاولين</h1>
+      <div class="subtitle">
+        حلول متكاملة ومعتمدة لتصنيف المقاولين، تجهيز الملفات، المتابعة مع الجهات الرسمية،
+        ودعم كامل للمنشآت حتى إصدار التصنيف واستمراريته.
+      </div>
+
+      <!-- SERVICES -->
+      <h2>خدمات التصنيف والاعتماد</h2>
+      <ul>
+        <li>إصدار شهادة تصنيف المقاولين (من الدرجة الأولى حتى الخامسة)</li>
+        <li>إصدار شهادات الاعتماد</li>
+        <li>إعداد وتجهيز جميع الملفات والمستندات المطلوبة</li>
+        <li>المتابعة مع الجهات المعنية حتى إصدار التصنيف</li>
+        <li>فحص قانوني ومالي وإداري وفني شامل</li>
+        <li>تعبئة النماذج وفق معايير وكالة التصنيف</li>
+        <li>معالجة العوائق والمشاكل القانونية</li>
+        <li>تنسيق الزيارات الميدانية ومتابعة الملف داخل الوكالة</li>
+      </ul>
+
+      <!-- BUSINESS SERVICES -->
+      <h2>خدمات الشركات والسجلات</h2>
+      <ul>
+        <li>تأسيس الشركات</li>
+        <li>تجديد السجلات التجارية</li>
+        <li>حجز الأسماء التجارية</li>
+        <li>شطب السجلات</li>
+      </ul>
+
+      <!-- QIWA -->
+      <h2>خدمات منصة قوى</h2>
+      <ul>
+        <li>نقل الكفالة</li>
+        <li>توثيق العقود</li>
+        <li>إصدار التأشيرات</li>
+        <li>تحديث الأنشطة</li>
+      </ul>
+
+      <!-- MUDAD -->
+      <h2>خدمات منصة مدد</h2>
+      <ul>
+        <li>إدارة الرواتب</li>
+        <li>حماية الأجور</li>
+      </ul>
+
+      <!-- CTA -->
+      <div class="cta-box">
+        <p>
+          هل ترغب في بدء الإجراءات أو الاستفسار عن متطلبات التصنيف؟
+          تواصل معنا الآن وسيتم خدمتك مباشرة.
+        </p>
+
+        <a class="btn-whatsapp"
+           href="https://wa.me/2011025156059?text=مرحبًا%20أنا%20من%20طرف%20رواج%20وأرغب%20في%20الاستفسار%20عن%20خدمات%20التصنيف"
+           target="_blank">
+           تواصل عبر واتساب الآن
+        </a>
+
+        <div class="note">
+          سيتم فتح واتساب برسالة جاهزة توضح أنك من طرف رواج
+        </div>
+      </div>
+
+    </div>
+
+    <footer>
+      جميع الحقوق محفوظة © رواج
+    </footer>
+  </div>
+
+</body>
+</html>
